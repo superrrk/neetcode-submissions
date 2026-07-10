@@ -1,0 +1,42 @@
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+    
+    # parse through the string using a left and r poitner to see if they are the same
+    # the whole string must be converted to lowercase
+    # and remove all the spaces, so that we are just comparing the letters
+    # the letter on the l and r pointer must be the same letter, 
+    # return true if this is the case for the whole string
+    # false otherwise
+    
+    # edge caes: if a string is empty, return false
+
+    # brute force approach is to make a copy of the string
+    # clean the string by checking for alphanumeric char, (a space is not alphanum)
+    # then reverse the new string it to see if they are equal
+    
+        # cleanedString = ""
+        # for character in s: 
+        #     if character.isalnum():
+        #         cleanedString += character.lower()
+        # return cleanedString == cleanedString[::-1]
+    # Time O(n): loops through each character n times, where n is the average length of the string s
+    # Space O(n): created a new string for each character
+
+        l, r = 0, len(s) - 1
+        
+        while l < r: 
+            while l < r and not self.alphaNum(s[l]):
+                l += 1
+            while r > l and not self.alphaNum(s[r]):
+                r -= 1
+            if s[l].lower() != s[r].lower():
+                return False
+            l, r = l + 1, r - 1
+        return True
+
+    def alphaNum(self, c):
+        return (ord("a") <= ord(c) < ord("z") or 
+        ord("A") <= ord(c) < ord("Z") or
+        ord("0") <= ord(c) < ord("9"))
+        
+
